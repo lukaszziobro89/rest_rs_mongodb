@@ -1,0 +1,10 @@
+*.wt
+data/*.wt
+data/diagnostic.data/
+data/journal
+*.lock
+*.swp
+*.pyc
+*.bson
+*.turtle
+WiredTiger
