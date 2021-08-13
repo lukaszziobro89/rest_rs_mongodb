@@ -8,7 +8,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 app.app_context().push()
 
-myclient = pymongo.MongoClient("mongodb://mongo_server:27017")
+myclient = pymongo.MongoClient("mongodb://mongo_1:27017")
 
 ENDPOINT_MESSAGE = os.environ.get('ENDPOINT_MESSAGE')
 
