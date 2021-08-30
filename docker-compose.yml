@@ -59,6 +59,7 @@ services:
       - .env
     volumes: 
       - ./scripts/:/scripts
+      - ./data/:/data
     entrypoint: ["bash", "/scripts/mongo_feed.sh"]
     depends_on:
      mongo_replica_set:
