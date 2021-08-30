@@ -34,6 +34,7 @@ def get_all_users(db, collection):
 
 
 @app.route("/<db>/<collection>/<id>", methods=['GET'])
+# TODO check why this is not working when using id in HTTP request - maybe it is but not via CURL check PYCHARM PROF.
 def get_user_by_id(db, collection, id):
     pymongo_cursor = myclient[db][collection].find({"id":id})
     data = []
