@@ -1,44 +1,15 @@
 #!/bin/env python
-import os
-import pymongo
-import json
-from flask import Flask, request, jsonify
+from flask import Flask
+from domain.user import user_blueprint
 
 
-app = Flask(__name__)
-app.app_context().push()
-
-myclient = pymongo.MongoClient("mongodb://mongo_1:27017")
-
-ENDPOINT_MESSAGE = os.environ.get('ENDPOINT_MESSAGE')
+def create_app():
+    app = Flask(__name__)
+    app.register_blueprint(user_blueprint)
+    return app
 
 
-@app.route('/')
-def hello_world():
-    return '{0} {1}'.format("MESSAGE:", ENDPOINT_MESSAGE)
-
-
-@app.route('/user')
-def user():
-   return 'user'
-
-
-@app.route("/<db>/<collection>", methods=['GET'])
-def get_all_users(db, collection):
-    pymongo_cursor = myclient[db][collection].find()
-    data = []
-    for doc in pymongo_cursor:
-        doc['_id'] = str(doc['_id'])
-        data.append(doc)
-    return jsonify(data)
-
-
-@app.route("/<db>/<collection>/<id>", methods=['GET'])
-# TODO check why this is not working when using id in HTTP request - maybe it is but not via CURL check PYCHARM PROF.
-def get_user_by_id(db, collection, id):
-    pymongo_cursor = myclient[db][collection].find({"id":id})
-    data = []
-    for doc in pymongo_cursor:
-        doc['_id'] = str(doc['_id'])
-        data.append(doc)
-    return jsonify(data)
+if __name__ == '__main__':
+    app = create_app()
+    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.app_context().push()
