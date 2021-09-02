@@ -67,7 +67,7 @@ services:
 
   rest_python3:
     container_name: rest_python3
-    build: ./app
+    build: app
     env_file: 
       ./.env
     ports:
